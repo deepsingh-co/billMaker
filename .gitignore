@@ -1,0 +1,32 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Production builds
+build/
+dist/
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.log
+
+# Test output
+coverage/
+
+# Python caches (UI/UX Pro Max skill scripts)
+__pycache__/
+*.py[cod]
+
+# Editors and OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
