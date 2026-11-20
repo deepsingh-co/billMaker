@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const Product = require("../models/product");
+const Product = require("../models/Product");
 
 //add product for a testing
 
@@ -10,7 +10,7 @@ router.post("/add", async (req , res) =>{
         await product.save();
         res.json(product);
     } catch (err){
-        res.status(500).json({error : err.messgae});
+        res.status(500).json({error : err.message});
     }
 });
 
