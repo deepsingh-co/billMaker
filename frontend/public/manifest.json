@@ -1,6 +1,7 @@
 {
   "short_name": "Barcode Suite",
-  "name": "Barcode Suite — Retail POS & Billing",
+  "name": "Barcode Suite — Barcode billing & retail analytics",
+  "description": "Scan products, generate invoices and follow store performance from one retail workspace.",
   "icons": [
     {
       "src": "favicon.ico",
@@ -20,6 +21,6 @@
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#0b1f3f",
-  "background_color": "#f8fafc"
+  "theme_color": "#050b18",
+  "background_color": "#050b18"
 }

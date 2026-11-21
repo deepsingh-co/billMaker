@@ -5,6 +5,13 @@ module.exports = {
     extend: {
       fontFamily: {
         sans: ['"Fira Sans"', "ui-sans-serif", "system-ui", "sans-serif"],
+        display: [
+          '"Plus Jakarta Sans"',
+          '"Fira Sans"',
+          "ui-sans-serif",
+          "system-ui",
+          "sans-serif",
+        ],
         mono: ['"Fira Code"', "ui-monospace", "SFMono-Regular", "monospace"],
       },
       colors: {

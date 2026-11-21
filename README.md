@@ -6,6 +6,18 @@ performance from a single interface.
 
 ## Features
 
+### Landing page
+- Marketing site at the root route with an interactive WebGL hero built with
+  React Three Fiber: a floating barcode invoice, animated scanning beam,
+  particle field and pointer-driven parallax.
+- The 3D scene loads on demand when it enters the viewport, is capped at 1.5x
+  pixel ratio and falls back to an animated static invoice for reduced motion,
+  Save-Data visitors or software-only WebGL renderers.
+- Feature grid, scan -> bill -> analyse workflow, a CSS 3D dashboard preview
+  that tilts toward the cursor, closing CTA and footer.
+- Scroll-triggered reveals and a reading-progress bar that respect reduced
+  motion preferences.
+
 ### Dashboard
 - KPI cards for revenue, bills, items sold and average bill value, each compared
   with the previous day.
@@ -37,13 +49,28 @@ performance from a single interface.
 
 | Layer | Tools |
 | --- | --- |
-| Frontend | React 19, Create React App, Tailwind CSS 3, Framer Motion, Lucide icons, html5-qrcode |
+| Frontend | React 19, Create React App, Tailwind CSS 3, Framer Motion, React Three Fiber, Three.js, Lucide icons, html5-qrcode |
 | Backend | Node.js, Express 5, Mongoose 9, MongoDB |
-| Design | UI/UX Pro Max skill (data-dense dashboard system) |
+| Design | UI/UX Pro Max skill (data-dense dashboard + scroll-storytelling landing) |
 
 The generated design system lives in
 [`design-system/barcode-suite/MASTER.md`](design-system/barcode-suite/MASTER.md)
-with a page override in `design-system/barcode-suite/pages/dashboard.md`.
+with page overrides in `design-system/barcode-suite/pages/dashboard.md` and
+`design-system/barcode-suite/pages/landing.md`.
+
+## Routes
+
+Hash routing keeps the marketing site and the workspace in one static build.
+
+| Route | View |
+| --- | --- |
+| `#/` or `#/home` | Marketing landing page |
+| `#/dashboard` | Sales dashboard |
+| `#/pos` | Point of sale |
+| `#/transactions` | Transaction history |
+
+The landing page links into the workspace, and the sidebar includes a
+**Back to site** link. Inside the workspace, `Alt + 1/2/3` switches views.
 
 ## Getting started
 
@@ -100,9 +127,9 @@ backend/
   models/          Mongoose schemas for products and bills
   routes/          Product and bill/analytics endpoints
 frontend/
-  src/components/  Layout, dashboard, POS and shared UI components
+  src/components/  Layout, dashboard, POS, landing and shared UI components
   src/hooks/       Analytics and bill data hooks
   src/lib/         API client and formatting helpers
-  src/pages/       Dashboard, Point of Sale and Transactions pages
+  src/pages/       Landing, Dashboard, Point of Sale and Transactions pages
 design-system/     Persisted UI/UX Pro Max design system
 ```

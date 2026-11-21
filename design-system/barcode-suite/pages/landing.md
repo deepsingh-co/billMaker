@@ -67,8 +67,9 @@ Suite.
 ## Page-Specific Components
 
 - `LandingNav` - fixed translucent navigation with mobile menu
-- `Hero3D` / `HeroScene` - lazy-loaded React Three Fiber scene with a floating
-  barcode invoice, scanning beam, particle field and pointer parallax
+- `Hero3D` / `HeroScene` - on-demand React Three Fiber scene with a floating
+  invoice (procedural canvas texture), scanning beam, particle field and
+  pointer parallax
 - `FeatureGrid` - six capability cards
 - `Workflow` - three-step scan -> invoice -> analytics narrative
 - `DashboardPreview` - CSS 3D tilt preview of the real sales dashboard
@@ -81,6 +82,6 @@ Suite.
 - Effects: scroll-triggered reveals, gentle float, scanning beam, pointer
   parallax; disable all of them when reduced motion is requested.
 - Performance: lazy-load the 3D bundle, cap device pixel ratio and skip WebGL
-  entirely for reduced-motion visitors.
+  entirely for reduced-motion, Save-Data and software-renderer visitors.
 - Navigation: highlight the active section and keep a persistent primary CTA.
 - CTA placement: nav, hero, dashboard preview and closing band.

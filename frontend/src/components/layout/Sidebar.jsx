@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   ChevronDown,
+  Globe,
   LayoutDashboard,
   ReceiptText,
   ScanBarcode,
@@ -99,6 +100,20 @@ function SidebarContent({ page, onNavigate, onClose }) {
             );
           })}
         </ul>
+
+        <div className="mt-4 border-t border-white/10 pt-3">
+          <button
+            type="button"
+            onClick={() => onNavigate("home")}
+            className="group flex w-full cursor-pointer items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-slate-400 transition-colors duration-200 hover:bg-white/5 hover:text-white"
+          >
+            <Globe
+              className="h-[18px] w-[18px] text-slate-500 transition-colors group-hover:text-slate-300"
+              aria-hidden="true"
+            />
+            <span className="flex-1 text-left">Back to site</span>
+          </button>
+        </div>
       </nav>
 
       <div className="p-4">
