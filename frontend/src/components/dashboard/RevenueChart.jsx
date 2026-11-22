@@ -121,7 +121,7 @@ export default function RevenueChart({ daily = [], days, loading, summary }) {
       <div className="relative mt-2" ref={containerRef}>
         {activePoint ? (
           <div
-            className="pointer-events-none absolute z-10 -translate-x-1/2 -translate-y-[115%] whitespace-nowrap rounded-lg bg-slate-900 px-3 py-2 text-xs text-white shadow-lg"
+            className="pointer-events-none absolute z-10 -translate-x-1/2 -translate-y-[115%] whitespace-nowrap rounded-lg bg-slate-900 px-3 py-2 text-xs text-white shadow-lg dark:border dark:border-slate-700 dark:bg-slate-800"
             style={{
               left: `${(activePoint.x / width) * 100}%`,
               top: `${(activePoint.y / height) * 100}%`,
@@ -165,14 +165,14 @@ export default function RevenueChart({ daily = [], days, loading, summary }) {
                   y1={y}
                   x2={padding.left + innerWidth}
                   y2={y}
-                  stroke="#e2e8f0"
+                  className="stroke-slate-200 dark:stroke-slate-700"
                   strokeDasharray="4 6"
                 />
                 <text
                   x={padding.left - 10}
                   y={y + 4}
                   textAnchor="end"
-                  className="fill-slate-500"
+                  className="fill-slate-500 dark:fill-slate-400"
                   fontSize={width < 520 ? 9 : 11}
                   fontFamily="Fira Code, monospace"
                 >
@@ -192,7 +192,7 @@ export default function RevenueChart({ daily = [], days, loading, summary }) {
                 x={point.x}
                 y={height - 8}
                 textAnchor="middle"
-                className="fill-slate-500"
+                className="fill-slate-500 dark:fill-slate-400"
                 fontSize={width < 520 ? 9 : 11}
               >
                 {formatShortDate(point.date)}
@@ -204,7 +204,7 @@ export default function RevenueChart({ daily = [], days, loading, summary }) {
           <path
             d={linePath}
             fill="none"
-            stroke="#2563eb"
+            className="stroke-brand-600 dark:stroke-brand-400"
             strokeWidth="2.5"
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -216,8 +216,7 @@ export default function RevenueChart({ daily = [], days, loading, summary }) {
                 cx={point.x}
                 cy={point.y}
                 r={activeIndex === index ? 5 : 3}
-                fill="#ffffff"
-                stroke="#2563eb"
+                className="fill-white stroke-brand-600 dark:fill-slate-900 dark:stroke-brand-400"
                 strokeWidth="2"
               />
               <rect
@@ -271,52 +270,52 @@ export default function RevenueChart({ daily = [], days, loading, summary }) {
   return (
     <section
       aria-labelledby="revenue-chart-title"
-      className="flex h-full flex-col rounded-2xl border border-slate-200 bg-white p-5 shadow-card sm:p-6"
+      className="flex h-full flex-col rounded-2xl border border-slate-200 bg-white p-5 shadow-card dark:border-slate-800 dark:bg-slate-900 sm:p-6"
     >
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div className="flex items-start gap-3">
-          <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-50 text-brand-700">
+          <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-50 text-brand-700 dark:bg-brand-500/15 dark:text-brand-300">
             <TrendingUp className="h-5 w-5" aria-hidden="true" />
           </span>
           <div>
             <h2
               id="revenue-chart-title"
-              className="text-base font-semibold text-slate-900"
+              className="text-base font-semibold text-slate-900 dark:text-slate-100"
             >
               Revenue trend
             </h2>
-            <p className="mt-0.5 text-sm text-slate-500">
+            <p className="mt-0.5 text-sm text-slate-500 dark:text-slate-400">
               Daily revenue across the last {days} days
             </p>
           </div>
         </div>
         <div className="text-right">
-          <p className="text-xs font-medium uppercase tracking-wider text-slate-500">
+          <p className="text-xs font-medium uppercase tracking-wider text-slate-500 dark:text-slate-400">
             Range revenue
           </p>
-          <p className="tabular mt-1 text-2xl font-semibold tracking-tight text-slate-900">
+          <p className="tabular mt-1 text-2xl font-semibold tracking-tight text-slate-900 dark:text-slate-100">
             {loading && data.length === 0 ? "—" : formatCurrency(rangeRevenue)}
           </p>
         </div>
       </div>
       {chart}
 
-      <div className="mt-6 grid grid-cols-3 gap-3 border-t border-slate-100 pt-4">
+      <div className="mt-6 grid grid-cols-3 gap-3 border-t border-slate-100 pt-4 dark:border-slate-800">
         <div>
-          <p className="text-xs font-medium text-slate-500">Bills in range</p>
-          <p className="tabular mt-1 text-sm font-semibold text-slate-900">
+          <p className="text-xs font-medium text-slate-500 dark:text-slate-400">Bills in range</p>
+          <p className="tabular mt-1 text-sm font-semibold text-slate-900 dark:text-slate-100">
             {loading && !summary ? "—" : formatNumber(summary?.bills || 0)}
           </p>
         </div>
         <div>
-          <p className="text-xs font-medium text-slate-500">Items sold</p>
-          <p className="tabular mt-1 text-sm font-semibold text-slate-900">
+          <p className="text-xs font-medium text-slate-500 dark:text-slate-400">Items sold</p>
+          <p className="tabular mt-1 text-sm font-semibold text-slate-900 dark:text-slate-100">
             {loading && !summary ? "—" : formatNumber(summary?.itemsSold || 0)}
           </p>
         </div>
         <div>
-          <p className="text-xs font-medium text-slate-500">Average bill</p>
-          <p className="tabular mt-1 text-sm font-semibold text-slate-900">
+          <p className="text-xs font-medium text-slate-500 dark:text-slate-400">Average bill</p>
+          <p className="tabular mt-1 text-sm font-semibold text-slate-900 dark:text-slate-100">
             {loading && !summary ? "—" : formatCurrency(summary?.avgBill || 0)}
           </p>
         </div>

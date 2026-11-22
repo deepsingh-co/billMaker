@@ -11,13 +11,13 @@ function PageLoading() {
   return (
     <div
       role="status"
-      className="flex min-h-[360px] flex-col items-center justify-center gap-4 rounded-2xl border border-slate-200 bg-white p-8 text-center shadow-card"
+      className="flex min-h-[360px] flex-col items-center justify-center gap-4 rounded-2xl border border-slate-200 bg-white p-8 text-center shadow-card dark:border-slate-800 dark:bg-slate-900"
     >
       <span
         aria-hidden="true"
-        className="h-8 w-8 animate-spin rounded-full border-2 border-slate-200 border-t-brand-600"
+        className="h-8 w-8 animate-spin rounded-full border-2 border-slate-200 border-t-brand-600 dark:border-slate-700 dark:border-t-brand-400"
       />
-      <p className="text-sm font-medium text-slate-500">Loading workspace…</p>
+      <p className="text-sm font-medium text-slate-500 dark:text-slate-400">Loading workspace…</p>
     </div>
   );
 }
@@ -32,7 +32,7 @@ export default function Workspace({ page, meta, onNavigate }) {
 
   return (
     <ToastProvider>
-      <div className="min-h-screen bg-slate-50">
+      <div className="min-h-screen bg-slate-50 dark:bg-slate-950">
         <a
           href="#main-content"
           onClick={(event) => {
@@ -75,7 +75,7 @@ export default function Workspace({ page, meta, onNavigate }) {
               ) : null}
             </Suspense>
 
-            <footer className="mt-10 flex flex-col gap-1 border-t border-slate-200 pt-5 text-xs text-slate-500 sm:flex-row sm:items-center sm:justify-between">
+            <footer className="mt-10 flex flex-col gap-1 border-t border-slate-200 pt-5 text-xs text-slate-500 dark:border-slate-800 dark:text-slate-400 sm:flex-row sm:items-center sm:justify-between">
               <p>
                 &copy; {new Date().getFullYear()} Barcode Suite. Retail POS and
                 billing workspace.

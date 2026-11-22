@@ -26,12 +26,12 @@ const SHORTCUTS = {
 
 function WorkspaceLoading() {
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center gap-4 bg-slate-50">
+    <div className="flex min-h-screen flex-col items-center justify-center gap-4 bg-slate-50 dark:bg-slate-950">
       <span
         aria-hidden="true"
-        className="h-8 w-8 animate-spin rounded-full border-2 border-slate-200 border-t-brand-600"
+        className="h-8 w-8 animate-spin rounded-full border-2 border-slate-200 border-t-brand-600 dark:border-slate-800 dark:border-t-brand-400"
       />
-      <p role="status" className="text-sm font-medium text-slate-500">
+      <p role="status" className="text-sm font-medium text-slate-500 dark:text-slate-400">
         Loading workspace…
       </p>
     </div>

@@ -138,18 +138,18 @@ export default function ScannerPanel({
   return (
     <section
       aria-labelledby="scanner-title"
-      className="rounded-2xl border border-slate-200 bg-white p-5 shadow-card sm:p-6"
+      className="rounded-2xl border border-slate-200 bg-white p-5 shadow-card dark:border-slate-800 dark:bg-slate-900 sm:p-6"
     >
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div className="flex items-start gap-3">
-          <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-50 text-brand-700">
+          <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-50 text-brand-700 dark:bg-brand-500/15 dark:text-brand-300">
             <ScanBarcode className="h-5 w-5" aria-hidden="true" />
           </span>
           <div>
-            <h2 id="scanner-title" className="text-base font-semibold text-slate-900">
+            <h2 id="scanner-title" className="text-base font-semibold text-slate-900 dark:text-slate-100">
               Barcode scanner
             </h2>
-            <p className="mt-0.5 text-sm text-slate-500">
+            <p className="mt-0.5 text-sm text-slate-500 dark:text-slate-400">
               Point the camera at a product barcode, or type the code manually.
             </p>
           </div>
@@ -157,7 +157,7 @@ export default function ScannerPanel({
 
         <div className="flex items-center gap-2">
           {active ? (
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-2.5 py-1 text-xs font-semibold text-emerald-700">
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-2.5 py-1 text-xs font-semibold text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-300">
               <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-500" />
               Live
             </span>
@@ -168,8 +168,8 @@ export default function ScannerPanel({
             disabled={starting}
             className={`inline-flex cursor-pointer items-center gap-2 rounded-xl px-3.5 py-2 text-sm font-semibold transition-colors duration-200 disabled:cursor-not-allowed disabled:opacity-60 ${
               active
-                ? "border border-slate-200 bg-white text-slate-700 hover:bg-slate-50"
-                : "bg-brand-800 text-white hover:bg-brand-700"
+                ? "border border-slate-200 bg-white text-slate-700 hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-200 dark:hover:bg-slate-800"
+                : "bg-brand-800 text-white hover:bg-brand-700 dark:bg-brand-600 dark:hover:bg-brand-500"
             }`}
           >
             {starting ? (
@@ -220,31 +220,31 @@ export default function ScannerPanel({
       {error ? (
         <p
           role="alert"
-          className="mt-3 rounded-lg border border-rose-200 bg-rose-50 px-3 py-2 text-sm text-rose-700"
+          className="mt-3 rounded-lg border border-rose-200 bg-rose-50 px-3 py-2 text-sm text-rose-700 dark:border-rose-500/30 dark:bg-rose-500/10 dark:text-rose-200"
         >
           {error}
         </p>
       ) : null}
 
       <div className="my-5 flex items-center gap-3">
-        <span className="h-px flex-1 bg-slate-200" />
-        <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-500">
+        <span className="h-px flex-1 bg-slate-200 dark:bg-slate-700" />
+        <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
           or enter manually
         </span>
-        <span className="h-px flex-1 bg-slate-200" />
+        <span className="h-px flex-1 bg-slate-200 dark:bg-slate-700" />
       </div>
 
       <form onSubmit={handleManualSubmit} className="space-y-2">
         <label
           htmlFor="manual-barcode"
-          className="block text-xs font-medium text-slate-600"
+          className="block text-xs font-medium text-slate-600 dark:text-slate-300"
         >
           Product barcode
         </label>
         <div className="flex flex-col gap-2 sm:flex-row">
           <div className="relative flex-1">
             <Hash
-              className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400"
+              className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400 dark:text-slate-500"
               aria-hidden="true"
             />
             <input
@@ -256,13 +256,13 @@ export default function ScannerPanel({
               value={manualValue}
               onChange={(event) => setManualValue(event.target.value)}
               placeholder="e.g. 8901234567890"
-              className="w-full rounded-xl border border-slate-200 bg-white py-2.5 pl-9 pr-3 font-mono text-sm text-slate-900 placeholder:font-sans placeholder:text-slate-400 focus:border-brand-400 focus:outline-none focus:ring-2 focus:ring-brand-100"
+              className="w-full rounded-xl border border-slate-200 bg-white py-2.5 pl-9 pr-3 font-mono text-sm text-slate-900 placeholder:font-sans placeholder:text-slate-400 focus:border-brand-400 focus:outline-none focus:ring-2 focus:ring-brand-100 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100 dark:placeholder:text-slate-500 dark:focus:border-brand-500 dark:focus:ring-brand-900/60"
             />
           </div>
           <button
             type="submit"
             disabled={!manualValue.trim() || busy}
-            className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-xl bg-slate-900 px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-50"
+            className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-xl bg-slate-900 px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-slate-100 dark:text-slate-900 dark:hover:bg-white"
           >
             {busy ? (
               <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />
@@ -275,26 +275,26 @@ export default function ScannerPanel({
       </form>
 
       {selectedProduct ? (
-        <div className="mt-5 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-emerald-200 bg-emerald-50/70 p-4">
+        <div className="mt-5 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-emerald-200 bg-emerald-50/70 p-4 dark:border-emerald-500/30 dark:bg-emerald-500/10">
           <div className="flex min-w-0 items-center gap-3">
-            <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-emerald-700">
+            <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-300">
               <CheckCircle2 className="h-4 w-4" aria-hidden="true" />
             </span>
             <div className="min-w-0">
-              <p className="truncate text-sm font-semibold text-emerald-900">
+              <p className="truncate text-sm font-semibold text-emerald-900 dark:text-emerald-100">
                 {selectedProduct.name}
               </p>
-              <p className="mt-0.5 inline-flex items-center gap-1.5 font-mono text-xs text-emerald-700">
+              <p className="mt-0.5 inline-flex items-center gap-1.5 font-mono text-xs text-emerald-700 dark:text-emerald-300">
                 <Tag className="h-3 w-3" aria-hidden="true" />
                 {selectedProduct.barcode}
               </p>
             </div>
           </div>
           <div className="text-right">
-            <p className="tabular text-sm font-semibold text-emerald-900">
+            <p className="tabular text-sm font-semibold text-emerald-900 dark:text-emerald-100">
               {formatCurrency(selectedProduct.price)}
             </p>
-            <p className="text-xs text-emerald-700">
+            <p className="text-xs text-emerald-700 dark:text-emerald-300">
               {cartQuantity} in cart
             </p>
           </div>

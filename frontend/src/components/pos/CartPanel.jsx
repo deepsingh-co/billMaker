@@ -24,14 +24,14 @@ export default function CartPanel({
   return (
     <section
       aria-labelledby="cart-title"
-      className="flex h-full flex-col rounded-2xl border border-slate-200 bg-white shadow-card"
+      className="flex h-full flex-col rounded-2xl border border-slate-200 bg-white shadow-card dark:border-slate-800 dark:bg-slate-900"
     >
-      <div className="flex items-center justify-between gap-3 border-b border-slate-100 px-5 py-4">
+      <div className="flex items-center justify-between gap-3 border-b border-slate-100 px-5 py-4 dark:border-slate-800">
         <div>
-          <h2 id="cart-title" className="text-base font-semibold text-slate-900">
+          <h2 id="cart-title" className="text-base font-semibold text-slate-900 dark:text-slate-100">
             Current cart
           </h2>
-          <p className="mt-0.5 text-sm text-slate-500">
+          <p className="mt-0.5 text-sm text-slate-500 dark:text-slate-400">
             {itemCount} {itemCount === 1 ? "item" : "items"} ready to bill
           </p>
         </div>
@@ -40,12 +40,12 @@ export default function CartPanel({
             <button
               type="button"
               onClick={onClear}
-              className="cursor-pointer rounded-lg px-2 py-1 text-xs font-semibold text-slate-500 transition-colors hover:bg-rose-50 hover:text-rose-600"
+              className="cursor-pointer rounded-lg px-2 py-1 text-xs font-semibold text-slate-500 transition-colors hover:bg-rose-50 hover:text-rose-600 dark:text-slate-400 dark:hover:bg-rose-500/15 dark:hover:text-rose-300"
             >
               Clear
             </button>
           ) : null}
-          <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-brand-50 text-brand-700">
+          <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-brand-50 text-brand-700 dark:bg-brand-500/15 dark:text-brand-300">
             <ShoppingCart className="h-4 w-4" aria-hidden="true" />
           </span>
         </div>
@@ -63,39 +63,39 @@ export default function CartPanel({
         </div>
       ) : (
         <>
-          <ul className="custom-scrollbar max-h-[420px] flex-1 divide-y divide-slate-100 overflow-y-auto px-5">
+          <ul className="custom-scrollbar max-h-[420px] flex-1 divide-y divide-slate-100 overflow-y-auto px-5 dark:divide-slate-800">
             {cart.map((item) => (
               <li key={item.barcode} className="py-4">
                 <div className="flex items-start justify-between gap-3">
                   <div className="min-w-0">
-                    <p className="truncate text-sm font-semibold text-slate-800">
+                    <p className="truncate text-sm font-semibold text-slate-800 dark:text-slate-200">
                       {item.name}
                     </p>
-                    <p className="mt-0.5 font-mono text-[11px] text-slate-500">
+                    <p className="mt-0.5 font-mono text-[11px] text-slate-500 dark:text-slate-400">
                       {item.barcode}
                     </p>
-                    <p className="mt-1 text-xs text-slate-500">
+                    <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
                       {formatCurrency(item.price)} each
                     </p>
                   </div>
                   <div className="flex shrink-0 items-center gap-2">
-                    <div className="flex items-center rounded-lg border border-slate-200 bg-white">
+                    <div className="flex items-center rounded-lg border border-slate-200 bg-white dark:border-slate-700 dark:bg-slate-950">
                       <button
                         type="button"
                         onClick={() => onDecrement(item)}
                         aria-label={`Decrease quantity of ${item.name}`}
-                        className="cursor-pointer rounded-l-lg p-1.5 text-slate-500 transition-colors hover:bg-slate-100 hover:text-slate-900"
+                        className="cursor-pointer rounded-l-lg p-1.5 text-slate-500 transition-colors hover:bg-slate-100 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100"
                       >
                         <Minus className="h-3.5 w-3.5" aria-hidden="true" />
                       </button>
-                      <span className="tabular w-8 text-center font-mono text-xs font-semibold text-slate-800">
+                      <span className="tabular w-8 text-center font-mono text-xs font-semibold text-slate-800 dark:text-slate-200">
                         {item.quantity}
                       </span>
                       <button
                         type="button"
                         onClick={() => onIncrement(item)}
                         aria-label={`Increase quantity of ${item.name}`}
-                        className="cursor-pointer rounded-r-lg p-1.5 text-slate-500 transition-colors hover:bg-slate-100 hover:text-slate-900"
+                        className="cursor-pointer rounded-r-lg p-1.5 text-slate-500 transition-colors hover:bg-slate-100 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100"
                       >
                         <Plus className="h-3.5 w-3.5" aria-hidden="true" />
                       </button>
@@ -104,17 +104,17 @@ export default function CartPanel({
                       type="button"
                       onClick={() => onRemove(item)}
                       aria-label={`Remove ${item.name} from cart`}
-                      className="cursor-pointer rounded-lg p-1.5 text-slate-400 transition-colors hover:bg-rose-50 hover:text-rose-600"
+                      className="cursor-pointer rounded-lg p-1.5 text-slate-400 transition-colors hover:bg-rose-50 hover:text-rose-600 dark:text-slate-500 dark:hover:bg-rose-500/15 dark:hover:text-rose-300"
                     >
                       <Trash2 className="h-4 w-4" aria-hidden="true" />
                     </button>
                   </div>
                 </div>
                 <div className="mt-2 flex items-center justify-between">
-                  <span className="text-xs text-slate-500">
+                  <span className="text-xs text-slate-500 dark:text-slate-400">
                     Line total
                   </span>
-                  <span className="tabular text-sm font-semibold text-slate-900">
+                  <span className="tabular text-sm font-semibold text-slate-900 dark:text-slate-100">
                     {formatCurrency(item.price * item.quantity)}
                   </span>
                 </div>
@@ -122,13 +122,13 @@ export default function CartPanel({
             ))}
           </ul>
 
-          <div className="border-t border-slate-100 p-5">
+          <div className="border-t border-slate-100 p-5 dark:border-slate-800">
             <div className="flex items-end justify-between">
               <div>
-                <p className="text-sm text-slate-500">Amount payable</p>
-                <p className="text-xs text-slate-500">Inclusive of all taxes</p>
+                <p className="text-sm text-slate-500 dark:text-slate-400">Amount payable</p>
+                <p className="text-xs text-slate-500 dark:text-slate-400">Inclusive of all taxes</p>
               </div>
-              <p className="tabular text-3xl font-semibold tracking-tight text-slate-900">
+              <p className="tabular text-3xl font-semibold tracking-tight text-slate-900 dark:text-slate-100">
                 {formatCurrency(total)}
               </p>
             </div>

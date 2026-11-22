@@ -5,6 +5,22 @@
     <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#050b18" />
+    <script>
+      (function () {
+        try {
+          var stored = localStorage.getItem("barcode-suite-theme");
+          var dark = stored
+            ? stored === "dark"
+            : window.matchMedia("(prefers-color-scheme: dark)").matches;
+          if (dark) document.documentElement.classList.add("dark");
+          document.documentElement.style.colorScheme = dark ? "dark" : "light";
+          var meta = document.querySelector('meta[name="theme-color"]');
+          if (meta) meta.setAttribute("content", dark ? "#020617" : "#f8fafc");
+        } catch (error) {
+          // Storage can be unavailable in private or embedded contexts.
+        }
+      })();
+    </script>
     <meta
       name="description"
       content="Barcode Suite turns any camera into a checkout counter: scan products, generate invoices and watch revenue update live."

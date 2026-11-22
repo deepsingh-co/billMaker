@@ -106,13 +106,13 @@ export default function PointOfSale() {
   return (
     <div className="space-y-6">
       <div>
-        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-brand-700">
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-brand-700 dark:text-brand-300">
           Checkout
         </p>
-        <h1 className="mt-1 text-2xl font-semibold tracking-tight text-slate-900 sm:text-3xl">
+        <h1 className="mt-1 text-2xl font-semibold tracking-tight text-slate-900 dark:text-slate-100 sm:text-3xl">
           Point of sale
         </h1>
-        <p className="mt-1.5 max-w-2xl text-sm text-slate-500">
+        <p className="mt-1.5 max-w-2xl text-sm text-slate-500 dark:text-slate-400">
           Scan products, adjust quantities and generate an invoice in seconds.
           Manual barcode entry is available if a camera is not connected.
         </p>

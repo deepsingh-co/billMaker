@@ -51,13 +51,13 @@ export default function Dashboard({ onNavigate }) {
     <div className="space-y-6">
       <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
         <div>
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-brand-700">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-brand-700 dark:text-brand-300">
             Overview
           </p>
-          <h1 className="mt-1 text-2xl font-semibold tracking-tight text-slate-900 sm:text-3xl">
+          <h1 className="mt-1 text-2xl font-semibold tracking-tight text-slate-900 dark:text-slate-100 sm:text-3xl">
             Sales dashboard
           </h1>
-          <p className="mt-1.5 max-w-2xl text-sm text-slate-500">
+          <p className="mt-1.5 max-w-2xl text-sm text-slate-500 dark:text-slate-400">
             Monitor today&apos;s counter activity, revenue trends and the
             products moving fastest.
           </p>
@@ -67,7 +67,7 @@ export default function Dashboard({ onNavigate }) {
           <div
             role="group"
             aria-label="Analytics date range"
-            className="inline-flex rounded-xl border border-slate-200 bg-white p-1 shadow-sm"
+            className="inline-flex rounded-xl border border-slate-200 bg-white p-1 shadow-sm dark:border-slate-700 dark:bg-slate-900"
           >
             {RANGE_OPTIONS.map((option) => (
               <button
@@ -77,8 +77,8 @@ export default function Dashboard({ onNavigate }) {
                 aria-pressed={days === option}
                 className={`cursor-pointer rounded-lg px-3 py-1.5 text-sm font-medium transition-colors duration-200 ${
                   days === option
-                    ? "bg-brand-800 text-white shadow-sm"
-                    : "text-slate-600 hover:bg-slate-100"
+                    ? "bg-brand-800 text-white shadow-sm dark:bg-brand-600"
+                    : "text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800"
                 }`}
               >
                 {option} days
@@ -90,7 +90,7 @@ export default function Dashboard({ onNavigate }) {
             onClick={refresh}
             aria-label="Refresh dashboard"
             title="Refresh dashboard"
-            className="cursor-pointer rounded-xl border border-slate-200 bg-white p-2.5 text-slate-600 shadow-sm transition-colors hover:bg-slate-50 hover:text-slate-900"
+            className="cursor-pointer rounded-xl border border-slate-200 bg-white p-2.5 text-slate-600 shadow-sm transition-colors hover:bg-slate-50 hover:text-slate-900 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-slate-100"
           >
             <RefreshCw
               className={`h-4 w-4 ${refreshing ? "animate-spin" : ""}`}
@@ -103,7 +103,7 @@ export default function Dashboard({ onNavigate }) {
       {error || billsError ? (
         <div
           role="alert"
-          className="flex flex-col gap-3 rounded-xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-800 sm:flex-row sm:items-center sm:justify-between"
+          className="flex flex-col gap-3 rounded-xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-800 dark:border-rose-500/30 dark:bg-rose-500/10 dark:text-rose-200 sm:flex-row sm:items-center sm:justify-between"
         >
           <div className="flex items-start gap-2.5">
             <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
