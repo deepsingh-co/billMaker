@@ -1,5 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Fira+Sans:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap");
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -85,6 +83,31 @@
 
 .landing-scanline {
   animation: landing-scan 3.8s ease-in-out infinite;
+}
+
+@keyframes landing-menu-in {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.landing-menu-in {
+  animation: landing-menu-in 180ms ease-out;
+}
+
+/* Skip layout and paint for sections that are still below the fold. */
+#landing-main > section:not(#hero) {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 900px;
+}
+
+#landing-main > section[aria-labelledby="cta-title"] {
+  contain-intrinsic-size: auto 320px;
 }
 
 /* html5-qrcode injects its own video element inside this container. */

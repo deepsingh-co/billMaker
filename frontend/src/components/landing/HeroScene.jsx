@@ -343,20 +343,20 @@ function ScanBeam() {
   return (
     <group ref={beam} position={[-0.48, -0.61, 0.048]}>
       <mesh>
-        <planeGeometry args={[1.82, 0.018]} />
+        <planeGeometry args={[1.82, 0.032]} />
         <meshBasicMaterial
-          color="#0284c7"
+          color="#0ea5e9"
           transparent
-          opacity={0.9}
+          opacity={0.95}
           depthWrite={false}
         />
       </mesh>
       <mesh position={[0, 0, -0.001]}>
-        <planeGeometry args={[1.82, 0.14]} />
+        <planeGeometry args={[1.82, 0.2]} />
         <meshBasicMaterial
           color="#38bdf8"
           transparent
-          opacity={0.18}
+          opacity={0.2}
           depthWrite={false}
         />
       </mesh>

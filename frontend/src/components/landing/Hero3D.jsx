@@ -23,8 +23,12 @@ function canUseLiveScene() {
 
   try {
     const probe = document.createElement("canvas");
+    const options = {
+      failIfMajorPerformanceCaveat: true,
+      powerPreference: "high-performance",
+    };
     const gl =
-      probe.getContext("webgl2") || probe.getContext("webgl");
+      probe.getContext("webgl2", options) || probe.getContext("webgl", options);
     if (!gl) return false;
 
     const debugInfo = gl.getExtension("WEBGL_debug_renderer_info");
@@ -185,7 +189,7 @@ export default function Hero3D() {
   const [liveSceneAvailable, setLiveSceneAvailable] = useState(false);
 
   useEffect(() => {
-    if (reducedMotion) {
+    if (reducedMotion || !inView) {
       setLiveSceneAvailable(false);
       return undefined;
     }
@@ -206,7 +210,7 @@ export default function Hero3D() {
         window.clearTimeout(idleId);
       }
     };
-  }, [reducedMotion]);
+  }, [reducedMotion, inView]);
 
   useEffect(() => {
     const node = container.current;
@@ -222,7 +226,7 @@ export default function Hero3D() {
           observer.disconnect();
         }
       },
-      { rootMargin: "0px" }
+      { threshold: 0.5 }
     );
 
     observer.observe(node);

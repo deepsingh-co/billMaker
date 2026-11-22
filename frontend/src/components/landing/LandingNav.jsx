@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
 import { ArrowRight, Menu, ScanBarcode, X } from "lucide-react";
 
 const LINKS = [
@@ -64,7 +63,6 @@ export default function LandingNav({ onNavigate }) {
             window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
           }}
           className="flex cursor-pointer items-center gap-2.5"
-          aria-label="Barcode Suite home"
         >
           <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-sky-400 to-sky-600 shadow-lg shadow-sky-500/25">
             <ScanBarcode className="h-5 w-5 text-white" aria-hidden="true" />
@@ -121,42 +119,36 @@ export default function LandingNav({ onNavigate }) {
         </div>
       </div>
 
-      <AnimatePresence>
-        {open ? (
-          <motion.div
-            id="landing-mobile-menu"
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.22, ease: "easeOut" }}
-            className="overflow-hidden border-t border-white/10 bg-[#050b18]/95 backdrop-blur-xl md:hidden"
+      {open ? (
+        <div
+          id="landing-mobile-menu"
+          className="landing-menu-in overflow-hidden border-t border-white/10 bg-[#050b18]/95 backdrop-blur-xl md:hidden"
+        >
+          <nav
+            aria-label="Mobile landing navigation"
+            className="mx-auto flex w-full max-w-6xl flex-col gap-1 px-4 py-4 sm:px-6"
           >
-            <nav
-              aria-label="Mobile landing navigation"
-              className="mx-auto flex w-full max-w-6xl flex-col gap-1 px-4 py-4 sm:px-6"
-            >
-              {LINKS.map((link) => (
-                <button
-                  key={link.id}
-                  type="button"
-                  onClick={() => handleSection(link.id)}
-                  className="cursor-pointer rounded-lg px-3 py-2.5 text-left text-sm font-medium text-slate-300 transition-colors hover:bg-white/5 hover:text-white"
-                >
-                  {link.label}
-                </button>
-              ))}
+            {LINKS.map((link) => (
               <button
+                key={link.id}
                 type="button"
-                onClick={() => onNavigate("dashboard")}
-                className="mt-2 inline-flex cursor-pointer items-center justify-center gap-2 rounded-xl bg-orange-500 px-4 py-3 text-sm font-semibold text-brand-950 transition-colors hover:bg-orange-400"
+                onClick={() => handleSection(link.id)}
+                className="cursor-pointer rounded-lg px-3 py-2.5 text-left text-sm font-medium text-slate-300 transition-colors hover:bg-white/5 hover:text-white"
               >
-                Open dashboard
-                <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                {link.label}
               </button>
-            </nav>
-          </motion.div>
-        ) : null}
-      </AnimatePresence>
+            ))}
+            <button
+              type="button"
+              onClick={() => onNavigate("dashboard")}
+              className="mt-2 inline-flex cursor-pointer items-center justify-center gap-2 rounded-xl bg-orange-500 px-4 py-3 text-sm font-semibold text-brand-950 transition-colors hover:bg-orange-400"
+            >
+              Open dashboard
+              <ArrowRight className="h-4 w-4" aria-hidden="true" />
+            </button>
+          </nav>
+        </div>
+      ) : null}
     </header>
   );
 }
