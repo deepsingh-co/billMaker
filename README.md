@@ -25,6 +25,9 @@ performance from a single interface.
   screen-reader friendly data tables.
 - Top products ranked by units sold, recent transactions, loading skeletons and
   actionable empty/error states.
+- Light and dark appearance toggle in the workspace header. The choice persists
+  per browser and applies across the dashboard, point of sale and transactions;
+  first-time visitors follow their system preference.
 
 ### Point of sale
 - Camera barcode scanning via `html5-qrcode`, with a manual barcode entry
