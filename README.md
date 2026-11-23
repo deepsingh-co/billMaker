@@ -17,6 +17,20 @@ performance from a single interface.
   that tilts toward the cursor, closing CTA and footer.
 - Scroll-triggered reveals and a reading-progress bar that respect reduced
   motion preferences.
+- Sign-in and create-account actions in the header and footer, with the
+  workspace CTA adapting to the current session.
+
+### Authentication
+- Dedicated sign-in and sign-up screens at `#/login` and `#/signup`, with
+  inline validation, password visibility toggles, a password checklist and
+  accessible error messaging.
+- Passwords are hashed with bcrypt (12 rounds). Sessions use signed JWTs with a
+  1-day default or a 30-day "keep me signed in" expiry.
+- Guests who open a workspace URL are sent to sign in and returned to the
+  requested view after authentication. Protected API requests attach the bearer
+  token automatically and end the session on a 401.
+- Sign-in and registration are rate-limited, and saved sessions are restored on
+  reload. The workspace header includes a profile menu with sign-out.
 
 ### Dashboard
 - KPI cards for revenue, bills, items sold and average bill value, each compared
@@ -43,17 +57,20 @@ performance from a single interface.
 - Summary metrics for the filtered result set.
 
 ### API
+- `POST /api/auth/register` and `POST /api/auth/login` return a JWT and the
+  public user profile. `GET /api/auth/me` restores a saved session.
 - `GET /api/bills/analytics?days=7` returns today/yesterday summaries, current and
   previous range totals, a zero-filled daily series and top products.
 - Bill listing is sorted by `createdAt` (newest first).
-- Product lookup and bill creation retain their existing contracts.
+- Product lookup and bill creation retain their existing contracts, now behind
+  JWT authentication.
 
 ## Tech stack
 
 | Layer | Tools |
 | --- | --- |
 | Frontend | React 19, Create React App, Tailwind CSS 3, Framer Motion, React Three Fiber, Three.js, Lucide icons, html5-qrcode |
-| Backend | Node.js, Express 5, Mongoose 9, MongoDB |
+| Backend | Node.js, Express 5, Mongoose 9, MongoDB, JWT, bcryptjs, express-rate-limit |
 | Design | UI/UX Pro Max skill (data-dense dashboard + scroll-storytelling landing) |
 
 The generated design system lives in
@@ -68,17 +85,21 @@ Hash routing keeps the marketing site and the workspace in one static build.
 | Route | View |
 | --- | --- |
 | `#/` or `#/home` | Marketing landing page |
-| `#/dashboard` | Sales dashboard |
-| `#/pos` | Point of sale |
-| `#/transactions` | Transaction history |
+| `#/login` | Sign in |
+| `#/signup` | Create an account |
+| `#/dashboard` | Sales dashboard (signed in) |
+| `#/pos` | Point of sale (signed in) |
+| `#/transactions` | Transaction history (signed in) |
 
 The landing page links into the workspace, and the sidebar includes a
-**Back to site** link. Inside the workspace, `Alt + 1/2/3` switches views.
+**Back to site** link. Guests opening a workspace route are redirected to
+`#/login?next=<route>` and returned there after signing in. Inside the
+workspace, `Alt + 1/2/3` switches views.
 
 ## Getting started
 
 ### Prerequisites
-- Node.js 18+
+- Node.js 20.19+ (required by Mongoose 9)
 - MongoDB running locally on `mongodb://127.0.0.1:27017`
 
 ### Backend
@@ -86,10 +107,19 @@ The landing page links into the workspace, and the sidebar includes a
 ```bash
 cd backend
 npm install
+cp .env.example .env
 npm start
 ```
 
-The API listens on `http://localhost:5000`.
+Set a long random `JWT_SECRET` in `backend/.env` before starting the API. Generate
+one with:
+
+```bash
+node -e "console.log(require('crypto').randomBytes(48).toString('hex'))"
+```
+
+`MONGODB_URI` defaults to `mongodb://127.0.0.1:27017/barcodeDB`. The API listens
+on `http://localhost:5000`; `.env` is ignored by git and must never be committed.
 
 ### Frontend
 
@@ -99,8 +129,9 @@ npm install
 npm start
 ```
 
-The app opens on `http://localhost:3000`. To point at a different API, create
-`frontend/.env.local`:
+The app opens on `http://localhost:3000`. Create the first account at
+`#/signup`, then use it to sign in and open the workspace. To point at a
+different API, create `frontend/.env.local`:
 
 ```dotenv
 REACT_APP_API_URL=http://localhost:5000/api
@@ -115,24 +146,44 @@ npm run build
 
 ## API reference
 
-| Method | Endpoint | Purpose |
-| --- | --- | --- |
-| `GET` | `/api/products/:barcode` | Look up a product by barcode |
-| `POST` | `/api/products/add` | Add a product |
-| `GET` | `/api/bills` | List bills, newest first |
-| `POST` | `/api/bills/add` | Create a bill (server calculates the total) |
-| `GET` | `/api/bills/analytics?days=7` | Dashboard analytics |
+| Method | Endpoint | Auth | Purpose |
+| --- | --- | --- | --- |
+| `POST` | `/api/auth/register` | Public | Create an account and return a JWT |
+| `POST` | `/api/auth/login` | Public | Sign in and return a JWT |
+| `GET` | `/api/auth/me` | Bearer | Return the signed-in user |
+| `GET` | `/api/products/:barcode` | Bearer | Look up a product by barcode |
+| `POST` | `/api/products/add` | Bearer | Add a product |
+| `GET` | `/api/bills` | Bearer | List bills, newest first |
+| `POST` | `/api/bills/add` | Bearer | Create a bill (server calculates the total) |
+| `GET` | `/api/bills/analytics?days=7` | Bearer | Dashboard analytics |
+
+Authenticated requests use `Authorization: Bearer <token>`. The frontend adds
+the header automatically. Registration accepts `name`, `email` and `password`;
+login accepts `email`, `password` and an optional `remember` boolean.
 
 ## Project structure
 
 ```
 backend/
-  models/          Mongoose schemas for products and bills
-  routes/          Product and bill/analytics endpoints
+  lib/             JWT helpers and shared auth validation
+  middleware/      JWT route guard
+  models/          Mongoose schemas for products, bills and users
+  routes/          Auth, product and bill/analytics endpoints
 frontend/
+  src/components/auth/  Auth provider, split layout and form fields
   src/components/  Layout, dashboard, POS, landing and shared UI components
   src/hooks/       Analytics and bill data hooks
-  src/lib/         API client and formatting helpers
-  src/pages/       Landing, Dashboard, Point of Sale and Transactions pages
+  src/lib/         API client, token storage, auth validation and formatting
+  src/pages/       Landing, Login, Signup, Dashboard, POS and Transactions
 design-system/     Persisted UI/UX Pro Max design system
 ```
+
+## Tests
+
+```bash
+cd backend && npm test
+cd frontend && npm test -- --watchAll=false
+```
+
+The backend suite covers password/email validation and JWT signing. The frontend
+suite covers the shared auth form validation and account initials helpers.
