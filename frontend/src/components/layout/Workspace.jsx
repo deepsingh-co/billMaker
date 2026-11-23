@@ -60,6 +60,7 @@ export default function Workspace({ page, meta, onNavigate }) {
             subtitle={meta.subtitle}
             onOpenSidebar={() => setSidebarOpen(true)}
             onNewSale={() => navigate("pos")}
+            onNavigate={navigate}
           />
 
           <main
