@@ -1,4 +1,5 @@
 import { ScanBarcode } from "lucide-react";
+import { useAuth } from "../auth/AuthProvider";
 
 const PRODUCT_LINKS = [
   { id: "dashboard", label: "Dashboard" },
@@ -25,10 +26,19 @@ function scrollToSection(id) {
 }
 
 export default function LandingFooter({ onNavigate }) {
+  const { isAuthenticated } = useAuth();
+
+  const accountLinks = isAuthenticated
+    ? [{ id: "dashboard", label: "Open dashboard" }]
+    : [
+        { id: "login", label: "Sign in" },
+        { id: "signup", label: "Create account" },
+      ];
+
   return (
     <footer className="border-t border-white/10 bg-[#040a14]">
       <div className="mx-auto w-full max-w-6xl px-4 py-12 sm:px-6 lg:px-8">
-        <div className="grid gap-10 md:grid-cols-[1.4fr_1fr_1fr]">
+        <div className="grid gap-10 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
           <div>
             <div className="flex items-center gap-2.5">
               <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-sky-400 to-sky-600">
@@ -79,6 +89,25 @@ export default function LandingFooter({ onNavigate }) {
                   <button
                     type="button"
                     onClick={() => scrollToSection(link.id)}
+                    className="cursor-pointer text-sm text-slate-400 transition-colors hover:text-white"
+                  >
+                    {link.label}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
+          <nav aria-label="Account links">
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">
+              Account
+            </p>
+            <ul className="mt-4 space-y-2.5">
+              {accountLinks.map((link) => (
+                <li key={link.id}>
+                  <button
+                    type="button"
+                    onClick={() => onNavigate(link.id)}
                     className="cursor-pointer text-sm text-slate-400 transition-colors hover:text-white"
                   >
                     {link.label}

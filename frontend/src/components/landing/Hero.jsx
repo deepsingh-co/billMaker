@@ -96,7 +96,7 @@ export default function Hero({ onNavigate }) {
             ))}
             <p className="flex items-center gap-1.5 text-xs text-slate-400 sm:ml-auto sm:self-end">
               <ShieldCheck className="h-3.5 w-3.5 text-emerald-400" aria-hidden="true" />
-              No sign-up required
+              Secure account access
             </p>
           </div>
         </div>

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { ArrowRight, Menu, ScanBarcode, X } from "lucide-react";
+import { ArrowRight, LogIn, Menu, ScanBarcode, X } from "lucide-react";
+import { useAuth } from "../auth/AuthProvider";
 
 const LINKS = [
   { id: "features", label: "Features" },
@@ -20,6 +21,7 @@ function scrollToSection(id) {
 }
 
 export default function LandingNav({ onNavigate }) {
+  const { isAuthenticated } = useAuth();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -42,6 +44,11 @@ export default function LandingNav({ onNavigate }) {
   const handleSection = (id) => {
     setOpen(false);
     scrollToSection(id);
+  };
+
+  const handleNavigate = (destination) => {
+    setOpen(false);
+    onNavigate(destination);
   };
 
   return (
@@ -94,14 +101,36 @@ export default function LandingNav({ onNavigate }) {
         </nav>
 
         <div className="flex items-center gap-2">
-          <button
-            type="button"
-            onClick={() => onNavigate("dashboard")}
-            className="hidden cursor-pointer items-center gap-2 rounded-xl bg-orange-500 px-4 py-2.5 text-sm font-semibold text-brand-950 shadow-lg shadow-orange-500/25 transition-colors duration-200 hover:bg-orange-400 sm:inline-flex"
-          >
-            Open dashboard
-            <ArrowRight className="h-4 w-4" aria-hidden="true" />
-          </button>
+          {isAuthenticated ? (
+            <button
+              type="button"
+              onClick={() => handleNavigate("dashboard")}
+              className="hidden cursor-pointer items-center gap-2 rounded-xl bg-orange-500 px-4 py-2.5 text-sm font-semibold text-brand-950 shadow-lg shadow-orange-500/25 transition-colors duration-200 hover:bg-orange-400 sm:inline-flex"
+            >
+              Open dashboard
+              <ArrowRight className="h-4 w-4" aria-hidden="true" />
+            </button>
+          ) : (
+            <>
+              <button
+                type="button"
+                onClick={() => handleNavigate("login")}
+                className="hidden cursor-pointer items-center gap-2 rounded-xl px-3 py-2.5 text-sm font-semibold text-slate-200 transition-colors hover:bg-white/5 hover:text-white md:inline-flex"
+              >
+                <LogIn className="h-4 w-4 text-sky-300" aria-hidden="true" />
+                Sign in
+              </button>
+              <button
+                type="button"
+                onClick={() => handleNavigate("signup")}
+                className="hidden cursor-pointer items-center gap-2 rounded-xl bg-orange-500 px-4 py-2.5 text-sm font-semibold text-brand-950 shadow-lg shadow-orange-500/25 transition-colors duration-200 hover:bg-orange-400 sm:inline-flex"
+              >
+                Create account
+                <ArrowRight className="h-4 w-4" aria-hidden="true" />
+              </button>
+            </>
+          )}
+
           <button
             type="button"
             onClick={() => setOpen((value) => !value)}
@@ -138,14 +167,38 @@ export default function LandingNav({ onNavigate }) {
                 {link.label}
               </button>
             ))}
-            <button
-              type="button"
-              onClick={() => onNavigate("dashboard")}
-              className="mt-2 inline-flex cursor-pointer items-center justify-center gap-2 rounded-xl bg-orange-500 px-4 py-3 text-sm font-semibold text-brand-950 transition-colors hover:bg-orange-400"
-            >
-              Open dashboard
-              <ArrowRight className="h-4 w-4" aria-hidden="true" />
-            </button>
+
+            <div className="my-2 h-px bg-white/10" />
+
+            {isAuthenticated ? (
+              <button
+                type="button"
+                onClick={() => handleNavigate("dashboard")}
+                className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-xl bg-orange-500 px-4 py-3 text-sm font-semibold text-brand-950 transition-colors hover:bg-orange-400"
+              >
+                Open dashboard
+                <ArrowRight className="h-4 w-4" aria-hidden="true" />
+              </button>
+            ) : (
+              <>
+                <button
+                  type="button"
+                  onClick={() => handleNavigate("login")}
+                  className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-xl border border-white/15 bg-white/5 px-4 py-3 text-sm font-semibold text-white transition-colors hover:bg-white/10"
+                >
+                  <LogIn className="h-4 w-4 text-sky-300" aria-hidden="true" />
+                  Sign in
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handleNavigate("signup")}
+                  className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-xl bg-orange-500 px-4 py-3 text-sm font-semibold text-brand-950 transition-colors hover:bg-orange-400"
+                >
+                  Create account
+                  <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                </button>
+              </>
+            )}
           </nav>
         </div>
       ) : null}

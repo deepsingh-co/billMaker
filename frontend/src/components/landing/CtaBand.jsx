@@ -60,7 +60,7 @@ export default function CtaBand({ onNavigate }) {
             </div>
 
             <p className="relative mt-6 text-xs text-slate-400">
-              No sign-up · Camera optional · Runs against your own MongoDB
+              Free account · Camera optional · Runs against your own MongoDB
             </p>
           </div>
         </Reveal>
